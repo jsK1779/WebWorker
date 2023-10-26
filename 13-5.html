@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>워커 태스크</title>
+</head>
+
+<body id="body">
+    <h3>학점 매기기</h3>
+    <hr>
+    <button onclick="input()">점수 입력</button>
+    <div id="res"></div>
+    <script>
+        let w = new Worker('calc.js')
+        let score
+        function input() {
+            score = prompt("점수를 숫자로 입력하세요")
+            w.postMessage(score)
+        }
+        w.onmessage = function (e) {
+            document.getElementById('res').innerHTML = score + "=" + e.data
+        }
+    </script>
+</body>
+
+</html>
